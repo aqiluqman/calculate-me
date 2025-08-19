@@ -38,6 +38,24 @@ A simple project where a client talks with a server through a local HTTPS REST A
 │
 │── package.json    # Required dependencies
 ```
+## 🔑 Environment Variables
+
+The application uses the following environment variables. The `.env` file is already included in the `backend/` directory.
+
+```env
+#path to the SSL private key
+SSL_KEY=../certs/key.pem
+
+#path to the SSL certificate
+SSL_CERT=../certs/cert.pem
+
+#API Key for authentication
+API_KEY=gb-calc-key
+
+#port used for the HTTPS server
+PORT=3443
+```
+
 
 ## How the Project Works
 
