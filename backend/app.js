@@ -71,7 +71,7 @@ const calculate = (expression) => {
       throw new Error('Invalid characters');
     }
     
-    // Safe evaluation
+    //safe eval
     const result = Function('"use strict"; return (' + clean + ')')();
     
     if (!isFinite(result)) {

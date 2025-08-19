@@ -11,6 +11,7 @@ async function calculate() {
     }
     
     try {
+        //POST to /calculate
         const response = await fetch(API_URL, {
             method: 'POST',
             headers: {
@@ -28,7 +29,7 @@ async function calculate() {
             showResult(`Error: ${data.error}`, 'error');
         }
     } catch (error) {
-        showResult('Error: Cannot connect to server', 'error');
+        showResult('Error: Cannot connect to server. Please enable browser to proceed as it is self-signed cert. ', 'error');
     }
 }
 
@@ -43,7 +44,7 @@ function setExpression(expr) {
     document.getElementById('expression').value = expr;
 }
 
-//event listenenr for enter key to run calculation
+//event listener for enter key to run calculation
 document.getElementById('expression').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         calculate();
