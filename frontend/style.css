@@ -1,0 +1,47 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+.calculator {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+.input-group {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.buttons {
+    margin: 10px 0;
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    flex: 1;
+    padding: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.result {
+    margin-top: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    min-height: 20px;
+}

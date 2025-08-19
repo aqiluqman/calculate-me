@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+   <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="calculator">
+        <div class="input-group">
+            <label for="expression">Enter Math Expression:</label>
+            <input type="text" id="expression" placeholder="e.g 1 + 4 * 3" />
+        </div>
+        
+        <div class="buttons">
+            <button class="btn-primary" onclick="calculate()">Calculate</button>
+        </div>
+        
+        <div id="result" class="result hidden"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
