@@ -6,22 +6,30 @@ A simple project where a client talks with a server through a local HTTPS REST A
 
 ## Getting Started  
 
-1. Install dependencies  
+1. Clone repository 
+   ```bash
+   git clone https://github.com/aqiluqman/calculate-me.git
+   ```
+2. Navigate to project directory
+   ```bash
+   cd calculate-me
+   ```
+3. Install dependencies  
    ```bash
    npm install
    ```
-2. Start the server  
+4. Start the server  
    ```bash
    npm start
    ```
-3. Open [https://localhost:3443](https://localhost:3443) in your browser.  
-4. Accept/Proceed the security warning shown by browser (note: this project uses self-signed SSL certs).
-5. Enter a math expression → **voila!** 🎉 The result is shown.  
+5. Open [https://localhost:3443](https://localhost:3443) in your browser.  
+6. Accept/Proceed the security warning shown by browser (note: this project uses self-signed SSL certs).
+7. Enter a math expression → **voila!** 🎉 The result is shown.  
 
 ---
 
 ## Project Structure
-
+The aim is to organize the files to enhance readability and maintanability. Each backend and frontend have their respective folders. Certificates are also kept in one folder. 
 ```
 │── backend/
 │   ├── server.js   # Express.js with Node.js for HTTPS server
@@ -98,6 +106,68 @@ x-api-key: gb-calc-key
 }
 ```
 
+## Algorithms Used
+
+## `/calculate` Endpoint
+
+```js
+app.post('/calculate', validateApiKey, (req, res) => {
+  const { expression } = req.body;
+  
+  if (!expression) {
+    return res.status(400).json({ error: 'Expression required' });
+  }
+  
+  try {
+    const result = calculate(expression);
+    res.json({ result });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+```
+
+#### Explanation
+It accepts a POST request with `expression` in the body. Then, it validates the API key, checks if the expression exists, and then evaluates it with the `calculate()` function. Results are returned as JSON, while errors return a 400 status.
+
+#### Why
+A simple, readable and secure design.
+- It has the `validateApiKey` to ensure only authorized access.
+- It has status codes for error handlings.
+
+## `calculate()` Function
+```js
+const calculate = (expression) => {
+  try {
+    //sanitize input
+    const clean = expression.replace(/\s/g, '');
+    if (!/^[0-9+\-*/().]+$/.test(clean)) {
+      throw new Error('Invalid characters');
+    }
+    
+    // Safe evaluation
+    const result = Function('"use strict"; return (' + clean + ')')();
+    
+    if (!isFinite(result)) {
+      throw new Error('Invalid result');
+    }
+    
+    return result;
+  } catch (error) {
+    throw new Error('Invalid expression');
+  }
+};
+```
+
+#### Explanation
+Evaluates mathematical expression provided as a string. The input is sanitized by removing whitespace and rejecting any characters other than math expression (eg. num & operators). The expression is then evaluated using JavaScript's `Function` constructor. If the result is not a valid number (e.g division by zero), an error is thrown.
+
+#### Why
+This approach was chosen to:
+- Able to restrict characters to numbers and math operators.
+- Simple evaluation logic and contained in one function.
+- Handles invalid results and throw clear errors.
+
 ## Tech Stack
 - Node.js (runtime)  
 - Express.js (server framework)  
@@ -116,6 +186,11 @@ openssl req -x509 -newkey rsa:2048 -nodes -keyout certs/key.pem -out certs/cert.
     "express": "^4.18.2"
 }
 ```
+cors: lets server accept requests from client
+
+dotenv: loads environment profile (eg. SSL certs and API key)
+
+express: web framework to provide HTTPS REST API calls
 
 ## Test Cases
 
