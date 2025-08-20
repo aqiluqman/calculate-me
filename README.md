@@ -3,6 +3,22 @@
 A simple project where a client talks to a server through a local HTTPS REST API call. It uses a self-signed SSL certificate to simulate actual HTTPS communication. The server exposes a single endpoint _/calculate_, which accepts an object containing the property "expression". The request is validated by checking the provided API key against the expected API key. If the key is valid, _/calculate_ returns the result of the expression.
 
 ---
+## 📑 Table of Contents
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [Environment Variables](#-environment-variables)
+- [How the Project Works](#how-the-project-works)
+  - [Server](#server)
+  - [Client](#client)
+- [API Usage](#api-usage)
+- [Algorithms Used](#algorithms-used)
+  - [/calculate Endpoint](#calculate-endpoint)
+  - [calculate() Function](#calculate-function)
+- [Tech Stack](#tech-stack)
+- [Dependencies](#dependencies)
+- [Test Cases](#test-cases)
+  - [Positive Tests](#positive-tests)
+  - [Negative Tests](#negative-tests)
 
 ## Getting Started  
 
