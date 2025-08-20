@@ -46,6 +46,8 @@ The aim is to organize the files to enhance readability and maintanability. Each
 │
 │── package.json    # Required dependencies
 ```
+_Note: The .env file and certificates are committed for convenience to run this project._
+
 ## 🔑 Environment Variables
 
 The application uses the following environment variables. The `.env` file is already included in the `backend/` directory.
