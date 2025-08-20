@@ -1,6 +1,6 @@
 # calculate-me
 
-A simple project where a client talks with a server through a local HTTPS REST API call. It uses a self-signed SSL certificate to simulate actual HTTPS communication. The server exposes a single endpoint _/calculate_, which accepts an object containing the property "expression". The request is validated by checking the provided API key against the expected API key. If the key is valid, _/calculate_ returns the result of the expression.
+A simple project where a client talks to a server through a local HTTPS REST API call. It uses a self-signed SSL certificate to simulate actual HTTPS communication. The server exposes a single endpoint _/calculate_, which accepts an object containing the property "expression". The request is validated by checking the provided API key against the expected API key. If the key is valid, _/calculate_ returns the result of the expression.
 
 ---
 
