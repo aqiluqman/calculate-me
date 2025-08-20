@@ -67,7 +67,7 @@ app.post('/calculate', validateApiKey, (req, res) => {
 //start server
 https.createServer(serverOptions, app).listen(PORT, () => {
   console.log(`Hello Global Blue! This is my assessment for User Story 1.`);
-  console.log(`Server running on https://localhost:${PORT}, click to open in browser!`);
+  console.log(`Server running on https://localhost:${PORT}, open this on your browser!`);
 });
 
 /*
