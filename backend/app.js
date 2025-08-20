@@ -12,18 +12,18 @@ const PORT = process.env.PORT
 const keyPath = path.resolve(__dirname, process.env.SSL_KEY);
 const certPath = path.resolve(__dirname, process.env.SSL_CERT);
 
-//configure HTTPS server with credentials
+//configure HTTPS server with self-signed certs
 const serverOptions = {
   key: fs.readFileSync(keyPath),
   cert: fs.readFileSync(certPath),
 };
 
-//init express app
+//init express app to start using express.js with cors to enable HTTPS between client and server
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-// validate API key
+//used for API Key authentication everytime an endpoint is called
 const validateApiKey = (req, res, next) => {
   const apiKey = req.headers['x-api-key'];
   if (apiKey !== API_KEY) {
@@ -32,15 +32,23 @@ const validateApiKey = (req, res, next) => {
   next();
 };
 
-//load frontend static files
+//load frontend static files to serve as client to make requests 
 app.use(express.static(path.join(__dirname, "../frontend")));
 
-//redirect user to index.html
+/*
+HTTPS Requests for self-signed certs can only be made between local server and client if user accepts the security warning. 
+If user straight goes into index.html file, requests will be blocked by browser.
+Once user enters the https://localhost:3443 server, it will redirect automatically to the loaded index.html. 
+This is why this GET endpoint was added, it makes the user accepts the browser security warning and redirect straight into frontend.
+*/
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/index.html"));
 });
 
-//API to handle string calculation 
+/*
+API to handle string calculations.
+It also checks the API key, along with sanitizing the expression by calling calculate() helper function
+*/
 app.post('/calculate', validateApiKey, (req, res) => {
   const { expression } = req.body;
   
@@ -62,7 +70,11 @@ https.createServer(serverOptions, app).listen(PORT, () => {
   console.log(`Server running on https://localhost:${PORT}, click to open in browser!`);
 });
 
-// helper function to calculate expression
+/*
+Helper function that receives string expression for math calculation.
+Includes removing any whitespaces and it will reject any invalid characters.
+Shows error when expression is invalid or produces non-finite result.
+*/
 const calculate = (expression) => {
   try {
     //sanitize input
